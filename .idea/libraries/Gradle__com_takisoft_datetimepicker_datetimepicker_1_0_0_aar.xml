@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.takisoft.datetimepicker:datetimepicker:1.0.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9f8b4826042bfde68c467d6fba71727/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9f8b4826042bfde68c467d6fba71727/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/a9f8b4826042bfde68c467d6fba71727/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.takisoft.datetimepicker/datetimepicker/1.0.0/d906f58e5cce7885bf414038d675ae1531d3b3a/datetimepicker-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

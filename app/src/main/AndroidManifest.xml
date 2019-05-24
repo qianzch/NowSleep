@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.qianzuncheng.nowsleep">
+
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
+    <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:node="replace">
+        <!--COMPILE INSTRUCTIONS: comment out the following meta-date block-->
+        <!--
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/admob_key"/>
+        -->
+
+        <!--
+        <meta-data android:name="com.google.android.gms.version"
+                   android:value="@integer/google_play_services_version" />
+        <activity android:name="com.google.android.gms.ads.AdActivity"
+                  android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+              -->
+
+        <activity
+            android:name="com.qianzuncheng.nowsleep.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.qianzuncheng.nowsleep.IntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Intro"/>
+        <activity android:name="com.qianzuncheng.nowsleep.SettingsActivity"
+            android:theme="@style/AppTheme.Settings"
+            android:label="@string/settings"
+            android:parentActivityName="com.qianzuncheng.nowsleep.MainActivity"/>
+        <activity android:name="com.qianzuncheng.nowsleep.AboutActivity"
+            android:theme="@style/about_About.wrapper"
+                  android:label="@string/about"
+                  android:parentActivityName="com.qianzuncheng.nowsleep.MainActivity"/>
+        <activity android:name="com.qianzuncheng.nowsleep.DonateActivity"
+            android:theme="@style/AppTheme.Settings"
+                  android:label="@string/about"
+                  android:parentActivityName="com.qianzuncheng.nowsleep.AboutActivity"/>
+
+        <receiver
+            android:name="com.qianzuncheng.nowsleep.BedtimeNotificationReceiver"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+        <receiver android:name="com.qianzuncheng.nowsleep.AutoDoNotDisturbReceiver"
+            android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver android:name="com.qianzuncheng.nowsleep.BedtimeNotificationHelper">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+
+    </application>
+
+    </manifest>

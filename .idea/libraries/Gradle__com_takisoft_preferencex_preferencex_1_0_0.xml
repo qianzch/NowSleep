@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.takisoft.preferencex:preferencex-1.0.0">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/preferencex-1.0.0.aar/7338c6f00c2f611422533e3a3206d921/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/preferencex-1.0.0.aar/7338c6f00c2f611422533e3a3206d921/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.takisoft.preferencex/preferencex/1.0.0/995ff8c88480e8aa05db047697ecdcfda9167547/preferencex-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

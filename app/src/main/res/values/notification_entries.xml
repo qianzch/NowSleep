@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pref_list_entries">
+        <item>@string/settings1Notification</item>
+        <item>@string/settings3Notification</item>
+        <item>@string/settings5Notification</item>
+    </string-array>
+    <string-array name="pref_list_values">
+        <item>1</item>
+        <item>3</item>
+        <item>5</item>
+    </string-array>
+</resources>

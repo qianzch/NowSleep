@@ -1,7 +1,7 @@
 package com.qianzuncheng.nowsleep.utilities;
 
 public class Constants {
-
+    // TODO: make it false when release
     public static final boolean DEBUG = true;
 
     public static final String BEDTIME_CHANNEL_ID = "bedtimeReminders";

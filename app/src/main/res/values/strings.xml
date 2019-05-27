@@ -29,7 +29,7 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
 
-    <string name="about_description">I created this open-source, mostly ad-free app not for money but because I saw a problem that needed solving. I encourage you to look at the source code of this app, available on my GitHub linked below. I would be thrilled if even one person compiled my code from scratch and tried to contribute to this project. Thank you for downloading Go to Sleep and I hope you have a beautiful sleep schedule from here on out!</string>
+    <string name="about_description">Source code of this app is available on my GitHub linked below. Thank you for downloading NowSleep and I hope you have a beautiful sleep schedule from here on out!\nSupport me by rating this APP in the store!</string>
     <string name="dollar_1" translatable="false">$1</string>
     <string name="paypal" translatable="false">PayPal: paypal.me/CGerdemann</string>
     <string name="donate_desc">Help support my future open-source projects by giving me a few bucks. It goes a long way and I very much appreciate it!</string>

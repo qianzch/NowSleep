@@ -18,7 +18,6 @@
 
 package com.qianzuncheng.nowsleep;
 
-import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,13 +25,11 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.qianzuncheng.nowsleep.R;
 
 public class DonateActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler {
 
@@ -79,23 +76,26 @@ public class DonateActivity extends AppCompatActivity implements BillingProcesso
     });
     */
     //End
-
+    /*
     ethereum.setOnClickListener(view -> {
         ClipData clip = ClipData.newPlainText(getString(R.string.supportEthereum), "0x8eFF5600A23708EFa475Be2C18892c9c0C43373B");
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, getString(R.string.supportEthereumCopied), Toast.LENGTH_LONG).show();
     });
+    */
 
     paypal.setOnClickListener(view -> {
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://paypal.me/CGerdemann"));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.me/qianzch"));
         startActivity(browserIntent);
     });
 
+    /*
     googlePay.setOnClickListener(view -> {
         ClipData clip = ClipData.newPlainText(getString(R.string.supportGooglePay), "qianzuncheng@gmail.com");
         clipboard.setPrimaryClip(clip);
         Toast.makeText(this, getString(R.string.supportGooglePayCopied), Toast.LENGTH_LONG).show();
     });
+    */
 
 
 

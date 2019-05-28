@@ -30,6 +30,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.qianzuncheng.nowsleep.ui.AboutPage;
+import com.qianzuncheng.nowsleep.ui.AboutElement;
+
 public class AboutActivity extends AppCompatActivity {
 
     private int clicked = 0;
@@ -44,7 +47,7 @@ public class AboutActivity extends AppCompatActivity {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         egg = settings.getBoolean(EGG_KEY, false);
 
-        Element version = new Element();
+        AboutElement version = new AboutElement();
         version.setTitle("Version " + BuildConfig.VERSION_NAME);
         version.setOnClickListener(view -> {
             if (clicked < 10) {
@@ -116,16 +119,16 @@ public class AboutActivity extends AppCompatActivity {
         });
 
 
-        Element github = new Element();
+        AboutElement github = new AboutElement();
         github.setTitle(getString(R.string.aboutGitHub));
         github.setOnClickListener(view -> {
            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/qianzch/NowSleep"));
            startActivity(browserIntent);
         });
 
-        // Rate the app
+        // TODO: Rate the app
         /*
-        Element playStore = new Element();
+        AboutElement playStore = new AboutElement();
         playStore.setTitle(getString(R.string.aboutRate));
         playStore.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.qianzuncheng.nowsleep"));
@@ -133,25 +136,7 @@ public class AboutActivity extends AppCompatActivity {
         });
         */
 
-        // Translate
-        /*
-        Element translate = new Element();
-        translate.setTitle("Translate the app")
-                .setOnClickListener(v -> {
-                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://crowdin.com/project/go-to-sleep"));
-                    startActivity(browserIntent);
-                });
-        */
-        /*
-        Element donate = new Element();
-        donate.setTitle(getString(R.string.aboutSupport))
-                .setOnClickListener(v -> {
-                    Intent donateIntent = new Intent(this, DonateActivity.class);
-                    startActivity(donateIntent);
-                });
-        //donate.setIconDrawable(R.drawable.ic_money);
-        */
-        Element email = new Element();
+        AboutElement email = new AboutElement();
         email.setTitle(getString(R.string.aboutContact));
         email.setOnClickListener(view -> {
             String subject = getString(R.string.aboutContactSubject);
@@ -169,37 +154,10 @@ public class AboutActivity extends AppCompatActivity {
 
         // TODO: visit my website
         /*
-        Element website = new Element();
+        AboutElement website = new AboutElement();
         website.setTitle(getString(R.string.aboutWebsite));
         website.setOnClickListener(view -> {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://qianzuncheng.com/"));
-            startActivity(browserIntent);
-        });
-        */
-
-        /*
-        Element credits = new Element();
-        credits.setTitle(getString(R.string.aboutCredits));
-        credits.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sleep.qianzuncheng.com/credits"));
-            startActivity(browserIntent);
-        });
-        */
-
-        /*
-        Element privacy = new Element();
-        privacy.setTitle(getString(R.string.aboutPrivacy));
-        privacy.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sleep.qianzuncheng.com/privacy"));
-            startActivity(browserIntent);
-        });
-        */
-
-        /*
-        Element license = new Element();
-        license.setTitle(getString(R.string.aboutLicense));
-        license.setOnClickListener(view -> {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://sleep.qianzuncheng.com/license"));
             startActivity(browserIntent);
         });
         */
@@ -209,14 +167,7 @@ public class AboutActivity extends AppCompatActivity {
                 .isRTL(false)
                 .addItem(version)
                 .addItem(github)
-                //.addItem(playStore)
-                //.addItem(translate)
-                //.addItem(donate)
-                //.addItem(website)
                 .addItem(email)
-                //.addItem(credits)
-                //.addItem(privacy)
-                //.addItem(license)
                 .create();
 
         setContentView(aboutPage);

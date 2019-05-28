@@ -16,7 +16,7 @@
  *         along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.qianzuncheng.nowsleep;
+package com.qianzuncheng.nowsleep.ui;
 
 import android.annotation.SuppressLint;
 import android.view.View;
@@ -28,6 +28,7 @@ import androidx.preference.PreferenceScreen;
 import androidx.preference.PreferenceViewHolder;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.qianzuncheng.nowsleep.R;
 import com.takisoft.preferencex.PreferenceCategory;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 

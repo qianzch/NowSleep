@@ -74,18 +74,6 @@
     <PreferenceCategory
         android:title="@string/categoryAdvanced"
         android:key="pref_advanced_options">
-        <!--
-        <PreferenceScreen
-            android:key="pref_advanced_purchase"
-            android:title="@string/advancedPurchaseTitle"
-            android:summary="@string/advancedPurchaseSummary">
-        </PreferenceScreen>
-        <PreferenceScreen
-            android:key="pref_gdpr"
-            android:title="@string/gdprTitle"
-            android:summary="@string/gdprSummary">
-        </PreferenceScreen>
-        -->
         <SwitchPreference
             android:defaultValue="false"
             android:key="pref_smartNotifications"
@@ -150,14 +138,13 @@
                 android:summary="@string/notification5"/>
 
         </PreferenceScreen>
-        <!--
-        <SwitchPreference
-            android:defaultValue="false"
-            android:key="pref_adsEnabled"
-            android:title="@string/enableAdsTitle"
-            android:summary="@string/enableAdsSummary"/>
-        -->
 
+        <PreferenceScreen
+            android:key="pref_debug"
+            android:title="DEBUG"
+
+            android:summary="Fire a notification!">
+        </PreferenceScreen>
 
     </PreferenceCategory>
 </PreferenceScreen>

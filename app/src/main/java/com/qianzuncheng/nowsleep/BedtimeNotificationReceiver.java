@@ -43,7 +43,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.content.Context.ALARM_SERVICE;
-import static com.qianzuncheng.nowsleep.SettingsFragment.isUsageAccessGranted;
+import static com.qianzuncheng.nowsleep.ui.SettingsFragment.isUsageAccessGranted;
 import static com.qianzuncheng.nowsleep.utilities.BedtimeUtilities.getBedtimeCal;
 import static com.qianzuncheng.nowsleep.utilities.BedtimeUtilities.parseBedtime;
 import static com.qianzuncheng.nowsleep.utilities.Constants.BEDTIME_CHANNEL_ID;
@@ -77,8 +77,6 @@ public class BedtimeNotificationReceiver extends BroadcastReceiver {
     private int numNotifications;
     private int notificationDelay;
     private int userActiveMargin;
-    private boolean adsEnabled;
-    private boolean advancedOptionsPurchased;
     private boolean smartNotifications;
     private boolean autoDND;
     private boolean userActive = true;

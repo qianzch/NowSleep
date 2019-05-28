@@ -54,10 +54,6 @@
             android:theme="@style/about_About.wrapper"
                   android:label="@string/about"
                   android:parentActivityName="com.qianzuncheng.nowsleep.MainActivity"/>
-        <activity android:name="com.qianzuncheng.nowsleep.DonateActivity"
-            android:theme="@style/AppTheme.Settings"
-                  android:label="@string/about"
-                  android:parentActivityName="com.qianzuncheng.nowsleep.AboutActivity"/>
 
         <receiver
             android:name="com.qianzuncheng.nowsleep.BedtimeNotificationReceiver"

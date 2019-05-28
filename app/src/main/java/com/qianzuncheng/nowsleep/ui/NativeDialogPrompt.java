@@ -1,4 +1,4 @@
-package com.qianzuncheng.nowsleep;
+package com.qianzuncheng.nowsleep.ui;
 
 import android.animation.LayoutTransition;
 import android.app.Fragment;
@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import com.qianzuncheng.nowsleep.R;
 
 
 /**

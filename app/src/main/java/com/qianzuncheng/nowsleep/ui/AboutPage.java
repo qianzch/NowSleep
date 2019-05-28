@@ -16,7 +16,7 @@
  *         along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.qianzuncheng.nowsleep;
+package com.qianzuncheng.nowsleep.ui;
 
 import android.app.Fragment;
 import android.content.Context;
@@ -41,16 +41,18 @@ import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.widget.TextViewCompat;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
+import com.qianzuncheng.nowsleep.R;
+
 /**
  * The main class of this library with many predefined methods to add Elements for common items in
  * an About page. This class creates a {@link android.view.View} that can be passed as the root view
  * in {@link Fragment#onCreateView(LayoutInflater, ViewGroup, Bundle)} or passed to the {@link android.app.Activity#setContentView(View)}
  * in an activity's {@link android.app.Activity#onCreate(Bundle)} method
  * <p>
- * To create a custom item in the about page, pass an instance of {@link Element}
- * to the {@link AboutPage#addItem(Element)} method.
+ * To create a custom item in the about page, pass an instance of {@link AboutElement}
+ * to the {@link AboutPage#addItem(AboutElement)} method.
  *
- * @see Element
+ * @see AboutElement
  */
 public class AboutPage {
     private final Context mContext;
@@ -75,13 +77,13 @@ public class AboutPage {
     }
 
     /**
-     * Add a custom {@link Element} to this AboutPage
+     * Add a custom {@link AboutElement} to this AboutPage
      *
      * @param element
      * @return this AboutPage instance for builder pattern support
-     * @see Element
+     * @see AboutElement
      */
-    public AboutPage addItem(Element element) {
+    public AboutPage addItem(AboutElement element) {
         LinearLayout wrapper = (LinearLayout) mView.findViewById(R.id.about_providers);
         wrapper.addView(createItem(element));
         wrapper.addView(getSeparator(), new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, mContext.getResources().getDimensionPixelSize(R.dimen.about_separator_height)));
@@ -190,7 +192,7 @@ public class AboutPage {
         return mView;
     }
 
-    private View createItem(final Element element) {
+    private View createItem(final AboutElement element) {
         LinearLayout wrapper = new LinearLayout(mContext);
         wrapper.setOrientation(LinearLayout.HORIZONTAL);
         wrapper.setClickable(true);

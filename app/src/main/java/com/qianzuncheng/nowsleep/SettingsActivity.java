@@ -26,6 +26,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceScreen;
 
+import com.qianzuncheng.nowsleep.ui.SettingsFragment;
 import com.takisoft.preferencex.PreferenceFragmentCompat;
 
 public class SettingsActivity extends AppCompatActivity implements PreferenceFragmentCompat.OnPreferenceStartScreenCallback {
@@ -36,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
         setContentView(R.layout.settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         if (savedInstanceState == null) {
-            SettingsFragment2 fragment = new SettingsFragment2();
+            SettingsFragment fragment = new SettingsFragment();
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.fragment, fragment);
@@ -47,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity implements PreferenceFra
     @Override
     public boolean onPreferenceStartScreen(androidx.preference.PreferenceFragmentCompat caller, PreferenceScreen pref) {
         final String TAG = "onPreferenceStartScreen";
-        SettingsFragment2 fragment = new SettingsFragment2();
+        SettingsFragment fragment = new SettingsFragment();
         Bundle args = new Bundle();
         args.putString(PreferenceFragmentCompat.ARG_PREFERENCE_ROOT, pref.getKey());
         fragment.setArguments(args);

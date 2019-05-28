@@ -50,13 +50,13 @@ import com.google.ads.consent.ConsentForm;
 import com.google.ads.consent.ConsentFormListener;
 import com.google.ads.consent.ConsentStatus;
 import com.google.android.gms.ads.AdView;
+import com.qianzuncheng.nowsleep.ui.NativeDialogPrompt;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -79,7 +79,6 @@ import static com.qianzuncheng.nowsleep.utilities.Constants.NOTIF_DELAY_KEY;
 import static com.qianzuncheng.nowsleep.utilities.Constants.NOTIF_ENABLE_KEY;
 import static com.qianzuncheng.nowsleep.utilities.Constants.PURCHASE_PROMPT_SHOWN_KEY;
 import static com.qianzuncheng.nowsleep.utilities.Constants.RATING_PROMPT_SHOWN_KEY;
-import static com.qianzuncheng.nowsleep.utilities.Constants.supportedLanguages;
 import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.cancelNextNotification;
 import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.createNotificationChannel;
 import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.setNotifications;
@@ -416,14 +415,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
             NativeDialogPrompt nativeDialogPrompt;
             // if statements to choose what kind of dialog to show
             Log.d(TAG, Locale.getDefault().getLanguage());
-            if (!Arrays.asList(supportedLanguages).contains(Locale.getDefault().getLanguage()) && !localizationPromptShown){
-                nativeDialogPrompt = NativeDialogPrompt.newInstance(
-                        new String[][]{{"https://crowdin.com/project/go-to-sleep"}},
-                        new String[][]{{"dismiss"}},
-                        new String[][]{{getString(R.string.translation_request)}}
-                );
-                e.putBoolean(LOCALIZATION_PROMPT_SHOWN_KEY, true).apply();
-            } else if (appLaunchedPortrait >= 8 && !ratingPromptShown){
+            if (appLaunchedPortrait >= 1 /*&& !ratingPromptShown*/) {
                 nativeDialogPrompt = NativeDialogPrompt.newInstance(
                         new String[][]{{"branch1"}, {Uri.parse("market://details?id=" + getApplicationContext().getPackageName()).toString()}, {sendFeedback()}},
                         new String[][]{{"branch2"}, {"dismiss"}, {"dismiss"}},
@@ -432,15 +424,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                         new String[][]{{getString(R.string.no)},{getString(R.string.no_thanks)},{getString(R.string.no_thanks)}}
                 );
                 e.putBoolean(RATING_PROMPT_SHOWN_KEY, true).apply();
-            } else if (appLaunchedPortrait >= 14 && !purchasePromptShown && !advancedOptionsPurchased){
-                nativeDialogPrompt = NativeDialogPrompt.newInstance(
-                        new String[][]{{"purchase:advanced"}},
-                        new String[][]{{"dismiss"}},
-                        new String[][]{{getString(R.string.purchase_dialog_prompt)}},
-                        new String[][]{{getString(R.string.ok_sure)}},
-                        new String[][]{{getString(R.string.no_thanks)}}
-                );
-                e.putBoolean(PURCHASE_PROMPT_SHOWN_KEY, true).apply();
             } else {
                 nativeDialogFrame.setVisibility(View.GONE);
                 e.apply();

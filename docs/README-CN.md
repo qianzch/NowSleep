@@ -1,5 +1,7 @@
 # NowSleep
 
+> 注意：这是一个老版本的存档，新版本见master branch
+
 这是一个免费且开源的安卓应用，原作者CorvetteCole <https://github.com/CorvetteCole/GotoSleep>
 
 <a href="./README.md">English Document (英文文档)</a>

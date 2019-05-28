@@ -1,4 +1,6 @@
 # NowSleep
+> Note: this is an old version archive, for newest version, see master branch
+
 This is an free open-source Android app, originally from the great author CorvetteCole <https://github.com/CorvetteCole/GotoSleep>
 
 <a href="./README-CN.md">中文文档 (Chinese Document)</a>

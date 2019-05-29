@@ -44,16 +44,9 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.anjlab.android.iab.v3.BillingProcessor;
-import com.anjlab.android.iab.v3.TransactionDetails;
-import com.google.ads.consent.ConsentForm;
-import com.google.ads.consent.ConsentFormListener;
-import com.google.ads.consent.ConsentStatus;
-import com.google.android.gms.ads.AdView;
+import com.qianzuncheng.nowsleep.broadcastreceiver.AutoDoNotDisturbReceiver;
 import com.qianzuncheng.nowsleep.ui.NativeDialogPrompt;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -65,8 +58,6 @@ import java.util.Objects;
 import static com.qianzuncheng.nowsleep.AboutActivity.EGG_KEY;
 import static com.qianzuncheng.nowsleep.utilities.BedtimeUtilities.getBedtimeCal;
 import static com.qianzuncheng.nowsleep.utilities.BedtimeUtilities.parseBedtime;
-import static com.qianzuncheng.nowsleep.utilities.Constants.ADS_ENABLED_KEY;
-import static com.qianzuncheng.nowsleep.utilities.Constants.ADVANCED_PURCHASED_KEY;
 import static com.qianzuncheng.nowsleep.utilities.Constants.APP_LAUNCHED_KEY;
 import static com.qianzuncheng.nowsleep.utilities.Constants.BACK_INTERVAL;
 import static com.qianzuncheng.nowsleep.utilities.Constants.BEDTIME_KEY;
@@ -83,7 +74,7 @@ import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.cancelNex
 import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.createNotificationChannel;
 import static com.qianzuncheng.nowsleep.utilities.NotificationUtilites.setNotifications;
 
-public class MainActivity extends AppCompatActivity implements BillingProcessor.IBillingHandler, NativeDialogPrompt.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements NativeDialogPrompt.OnFragmentInteractionListener {
 
 
     private long backPressed;
@@ -104,7 +95,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     private boolean isFirstStart;
     private boolean isSecondStart;
-    private boolean adsEnabled;
 
     private final String TAG = "MainActivity";
     private boolean notificationsEnabled;
@@ -114,21 +104,14 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private int numNotifications;
     private int notificationDelay;
 
-    private boolean advancedOptionsPurchased;
-    private BillingProcessor bp;
-
     private NotificationManager notificationManager;
-    private AdView adView;
 
-    private boolean adsLoaded = false;
-    private boolean adsInitialized = false;
     private boolean isAutoDoNotDisturbEnabled;
 
     private FrameLayout nativeDialogFrame;
 
     private boolean isRequestingFeedback = false;
     private boolean isRequestingRating = false;
-
 
     private int appLaunchedPortrait;
 
@@ -139,11 +122,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private boolean localizationPromptShown;
     private boolean purchasePromptShown;
 
-    private ConsentForm consentForm;
-
     private SharedPreferences getPrefs;
-
-    static boolean shouldUpdateConsent = false;
 
     private boolean sleepModeEnabled = false;
 
@@ -156,11 +135,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
     private ArrayList<ValueAnimator> colorAnimations = new ArrayList<>();
 
     private NativeDialogPrompt nativeDialogPrompt;
-
-    /*private UsageStatsManager usageStatsManager;
-    private Button usageButton;
-    private int userActiveMargin;
-    */
 
     @Override
     public void onStart() {
@@ -219,62 +193,19 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
             editBedtimeClicked = false;
         }
 
-        if (!adsInitialized || shouldUpdateConsent) {
-            enableDisableAds();
-        }
         if ((ratingPromptShown || purchasePromptShown || localizationPromptShown) && nativeDialogFrame.getVisibility() == View.VISIBLE) {
             //#TODO nativeDialogFrame.setVisibility(View.GONE);
-
-            //COMPILE INSTRUCTIONS: comment out the following code block
-            //Start
-            /*
-            if (adView.getVisibility() != View.VISIBLE){
-                Log.d(TAG, "re-enabling ads after rating prompt...");
-                enableDisableAds();
-            }
-            */
-            //End
         }
         Log.d(TAG, "onResume finished " + System.currentTimeMillis());
 
     }
 
     @Override
-    public void onProductPurchased(String productId, TransactionDetails details) {
-        if (productId.equals("go_to_sleep_advanced")){
-            Log.d("productPurchased", "go to sleep advanced purchased");
-            advancedOptionsPurchased = true;
-            getPrefs.edit().putBoolean(ADVANCED_PURCHASED_KEY, true).apply();
-        }
-    }
-
-    @Override
-    public void onPurchaseHistoryRestored() {
-
-    }
-
-    @Override
-    public void onBillingError(int errorCode, Throwable error) {
-
-    }
-
-    @Override
-    public void onBillingInitialized() {
-
-    }
-
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (!bp.handleActivityResult(requestCode, resultCode, data)) {
-            super.onActivityResult(requestCode, resultCode, data);
-        }
     }
 
     @Override
     public void onDestroy() {
-        if (bp != null) {
-            bp.release();
-        }
         super.onDestroy();
     }
 
@@ -334,21 +265,12 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
                 int colorTo = getResources().getColor(R.color.indigo);
                 colorAnimations.add(ValueAnimator.ofObject(new ArgbEvaluator(), colorFrom, colorTo));
             }
-            //COMPILE INSTRUCTIONS: comment out the following block
-            //Start
-            /*
-            bp = new BillingProcessor(this, getResources().getString(R.string.license_key), this);
-            bp.initialize();
-            bp.loadOwnedPurchasesFromGoogle();
-            */
-            //End
 
             notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
             createNotificationChannel(getBaseContext());
             loadPreferences();
 
             initializeDialogs();
-            enableDisableAds();
 
             final Intent settings = new Intent(MainActivity.this, SettingsActivity.class);
             final Intent about = new Intent(MainActivity.this, AboutActivity.class);
@@ -751,21 +673,6 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         colorAnimation.start();
     }
 
-    private void sendToPlayStore(){
-        final Uri uri = Uri.parse("market://details?id=" + getApplicationContext().getPackageName());
-        final Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
-
-        if (getPackageManager().queryIntentActivities(rateAppIntent, 0).size() > 0)
-        {
-            startActivity(rateAppIntent);
-            rateAppIntent.toString();
-        }
-        else
-        {
-            /* handle your error case: the device has no way to handle market urls */
-        }
-    }
-
     private String sendFeedback(){
         String subject = "Go to Sleep Feedback";
         String bodyText = getString(R.string.feedbackBodyText);
@@ -795,8 +702,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
             numNotifications = 3;
             notificationDelay = 15;
         }
-        advancedOptionsPurchased = settings.getBoolean(ADVANCED_PURCHASED_KEY, false);
-        adsEnabled = settings.getBoolean(ADS_ENABLED_KEY, false);
+
         isAutoDoNotDisturbEnabled = settings.getBoolean(DND_KEY, false);
         if (isAutoDoNotDisturbEnabled) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -812,154 +718,8 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
         appLaunchedPortrait = settings.getInt(APP_LAUNCHED_KEY, 0);
         egg = settings.getBoolean(EGG_KEY, false);
 
-        settings.edit().putBoolean(ADVANCED_PURCHASED_KEY, advancedOptionsPurchased).apply();
     }
 
-
-
-
-
-
-
-    private void enableDisableAds(){
-        //COMPILE INSTRUCTIONS: comment out the following code block
-        //Start
-        /*
-        if ((adsEnabled && adView.getVisibility() != View.VISIBLE && nativeDialogFrame.getVisibility() != View.VISIBLE) || shouldUpdateConsent) {
-            Log.d(TAG, "enableDisableAds initialized");
-            if (!adsInitialized){
-                //MobileAds.initialize(this, getResources().getString(R.string.admob_key));
-                adsInitialized = true;
-            }
-            adView.setVisibility(View.VISIBLE);
-            getAdConsentStatus(this);
-
-        } else if (adView.getVisibility() != View.GONE && !adsEnabled){
-
-            adView.setVisibility(View.GONE);
-        }
-        */
-        //End
-    }
-
-    private void getAdConsentStatus(Context context){
-        //COMPILE INSTRUCTIONS: comment out the following code block
-        //Start
-        /*
-        ConsentInformation consentInformation = ConsentInformation.getInstance(context);
-        String[] publisherIds = {context.getResources().getString(R.string.admob_publisher_id)};
-        consentInformation.requestConsentInfoUpdate(publisherIds, new ConsentInfoUpdateListener() {
-
-            @Override
-            public void onConsentInfoUpdated(ConsentStatus consentStatus) {
-                // User's consent status successfully updated.
-                if (consentInformation.isRequestLocationInEeaOrUnknown()){
-                    if (consentStatus == ConsentStatus.NON_PERSONALIZED){
-                        Bundle extras = new Bundle();
-                        extras.putString("npa", "1");
-                        AdRequest adRequest = new AdRequest.Builder()
-                                .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                                .build();
-                        adView.loadAd(adRequest);
-                    } else if (consentStatus == ConsentStatus.UNKNOWN) {
-                        consentForm = makeConsentForm(context);
-                        Log.d(TAG, "consent form loading");
-                        consentForm.load();
-                    } else {
-                        AdRequest adRequest = new AdRequest.Builder()
-                                .build();
-                        adView.loadAd(adRequest);
-                    }
-                } else {
-                    //US users
-                    AdRequest adRequest = new AdRequest.Builder()
-                            .build();
-                    adView.loadAd(adRequest);
-                }
-
-
-            }
-
-            @Override
-            public void onFailedToUpdateConsentInfo(String errorDescription) {
-                // User's consent status failed to update.
-            }
-        });
-        */
-        //End
-        shouldUpdateConsent = false;
-    }
-
-    private ConsentForm makeConsentForm(Context context){
-        URL privacyUrl = null;
-        try {
-            privacyUrl = new URL("https://sleep.qianzuncheng.com/privacy");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            // Handle error.
-        }
-        return new ConsentForm.Builder(context, privacyUrl)
-                .withListener(new ConsentFormListener() {
-                    @Override
-                    public void onConsentFormLoaded() {
-                        // Consent form loaded successfully.
-                        Log.d(TAG, "consent form loaded... showing");
-                        consentForm.show();
-
-                    }
-
-                    @Override
-                    public void onConsentFormOpened() {
-                        // Consent form was displayed.
-                        Log.d(TAG, "consent form opened");
-                    }
-
-                    @Override
-                    public void onConsentFormClosed(ConsentStatus consentStatus, Boolean userPrefersAdFree) {
-                        // Consent form was closed.
-                        Log.d(TAG, "consent form closed");
-                        if (userPrefersAdFree){
-                            Log.d(TAG, "initiating in-app purchase...");
-                            //COMPILE INSTRUCTIONS: comment out the following line, uncomment the ones below it
-                            //bp.purchase(MainActivity.this, "go_to_sleep_advanced");
-                            advancedOptionsPurchased = true;
-                            //getPrefs.edit().putBoolean(ADVANCED_PURCHASED_KEY, true).apply();
-
-                        } else if (consentStatus == ConsentStatus.NON_PERSONALIZED) {
-                            Bundle extras = new Bundle();
-                            extras.putString("npa", "1");
-                            //COMPILE INSTRUCTIONS: comment out the following code block
-                            //Start
-                            /*
-                            AdRequest adRequest = new AdRequest.Builder()
-                                    .addNetworkExtrasBundle(AdMobAdapter.class, extras)
-                                    .build();
-                            adView.loadAd(adRequest);
-                            */
-                            //End
-                        } else {
-                            //COMPILE INSTRUCTIONS: comment out the following code block
-                            //Start
-                            /*
-                            AdRequest adRequest = new AdRequest.Builder()
-                                    .build();
-                            adView.loadAd(adRequest);
-                            */
-                            //End
-                        }
-
-                    }
-
-                    @Override
-                    public void onConsentFormError(String errorDescription) {
-                        // Consent form error.
-                    }
-                })
-                .withPersonalizedAdsOption()
-                .withNonPersonalizedAdsOption()
-                .withAdFreeOption()
-                .build();
-    }
 
 
     /*
@@ -1111,9 +871,7 @@ public class MainActivity extends AppCompatActivity implements BillingProcessor.
 
     @Override
     public void onFragmentInteraction(String string) {
-        if (string.equalsIgnoreCase("advanced")){
-            bp.purchase(MainActivity.this, "go_to_sleep_advanced");
-        } else if (string.equalsIgnoreCase("dismissed")){
+        if (string.equalsIgnoreCase("dismissed")){
             FragmentTransaction transaction = this.getSupportFragmentManager().beginTransaction();
             transaction.remove(nativeDialogPrompt);
             transaction.commit();

@@ -16,7 +16,7 @@
  *         along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.qianzuncheng.nowsleep;
+package com.qianzuncheng.nowsleep.broadcastreceiver;
 
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -27,6 +27,8 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
+
+import com.qianzuncheng.nowsleep.R;
 
 import java.util.Calendar;
 

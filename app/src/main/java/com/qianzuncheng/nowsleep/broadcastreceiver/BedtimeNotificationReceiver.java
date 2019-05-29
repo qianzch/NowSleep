@@ -16,7 +16,7 @@
  *         along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.qianzuncheng.nowsleep;
+package com.qianzuncheng.nowsleep.broadcastreceiver;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -34,6 +34,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+
+import com.qianzuncheng.nowsleep.MainActivity;
+import com.qianzuncheng.nowsleep.R;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -337,8 +340,5 @@ public class BedtimeNotificationReceiver extends BroadcastReceiver {
             am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         }
     }
-
-
-
 
 }

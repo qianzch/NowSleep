@@ -56,11 +56,11 @@
                   android:parentActivityName="com.qianzuncheng.nowsleep.MainActivity"/>
 
         <receiver
-            android:name="com.qianzuncheng.nowsleep.BedtimeNotificationReceiver"
+            android:name="com.qianzuncheng.nowsleep.broadcastreceiver.BedtimeNotificationReceiver"
             android:permission="android.permission.BIND_JOB_SERVICE" />
-        <receiver android:name="com.qianzuncheng.nowsleep.AutoDoNotDisturbReceiver"
+        <receiver android:name="com.qianzuncheng.nowsleep.broadcastreceiver.AutoDoNotDisturbReceiver"
             android:permission="android.permission.BIND_JOB_SERVICE"/>
-        <receiver android:name="com.qianzuncheng.nowsleep.BedtimeNotificationHelper">
+        <receiver android:name="com.qianzuncheng.nowsleep.broadcastreceiver.BedtimeNotificationHelper">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>

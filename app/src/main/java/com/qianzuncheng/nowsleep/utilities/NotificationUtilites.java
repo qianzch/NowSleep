@@ -11,7 +11,7 @@ import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.qianzuncheng.nowsleep.BedtimeNotificationReceiver;
+import com.qianzuncheng.nowsleep.broadcastreceiver.BedtimeNotificationReceiver;
 import com.qianzuncheng.nowsleep.R;
 
 import java.util.Calendar;
